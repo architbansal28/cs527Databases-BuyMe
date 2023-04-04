@@ -103,7 +103,7 @@ CREATE TABLE `question` (
   `ques_id` int NOT NULL AUTO_INCREMENT,
   `ques_text` varchar(500) NOT NULL,
   `ans_text` varchar(500),
-  `status` enum('pending','resolved','declined') NOT NULL DEFAULT 'pending',
+  `status` enum('pending','resolved') NOT NULL DEFAULT 'pending',
   `timestamp_asked` datetime NOT NULL,
   `timestamp_resolved` datetime,
   `end_user_id` varchar(20) NOT NULL,

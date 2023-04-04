@@ -28,8 +28,8 @@
 		if (result.next()) {
 			out.println("Item already on auction! <a href='startAuction.jsp'>Go back.</a>");
 		} else {
-			String insert = "INSERT INTO auction(cat_id, subcat_id, item_id, starting_time, closing_time, initial_price, increment_price, minimum_price)"
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			String insert = "INSERT INTO auction(cat_id, subcat_id, item_id, starting_time, closing_time, initial_price, increment_price, minimum_price, curr_price)"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = con.prepareStatement(insert);
 			ps.setString(1, cat_id);
 			ps.setString(2, subcat_id);
@@ -39,6 +39,7 @@
 			ps.setString(6, initial_price);
 			ps.setString(7, increment_price);
 			ps.setString(8, minimum_price);
+			ps.setString(9, initial_price);
 			ps.executeUpdate();
 			
 			out.println("Auction added successfully! <a href='auction.jsp'>Go back.</a>");
