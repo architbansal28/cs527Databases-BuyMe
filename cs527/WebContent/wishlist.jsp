@@ -71,11 +71,72 @@
 			out.println("</td></tr>");
 		}while (result.next());
 		
-		out.println("</table><br/><br/>");
+		result.close();
+		
+		out.println("</table><br/><br/>");		
 	}
+		
+
+		
+		// Print a Table with current wishlist items
+		ResultSet current_wishlist = stmt.executeQuery("select * from wishlist INNER JOIN item ON wishlist.item_id = item.item_id where user_id ='" + user_id + "'");
+		
+		if (!current_wishlist.isBeforeFirst()) {
+			out.println("No items in wishlist");
+		}
+		
+		else{
+			out.println("<b> Wishlist items:</b><br/>");
+			out.println("<table border='1'>");
+			out.println(
+			"<tr><th>Category</th><th>Subcategory</th><th>Name</th><th>Brand</th><th>Year</th><th>Description</th><th>Description</th><th>Description</th><th>Seller</th><th>Remove from Wishlist</th></tr>");
+
+			while (current_wishlist.next()){
+				
+				String item_id = current_wishlist.getString("item_id");
+				String cat_id = current_wishlist.getString("cat_id");
+				String subcat_id = current_wishlist.getString("subcat_id");
+				
+				//result = stmt.executeQuery("select * from item where item_id ='" + item_id + "'");
+				//result.next();
+				
+				out.println("<tr><td>");
+				out.print(cat_id);
+				out.println("</td><td>");
+				out.print(subcat_id);
+				out.println("</td><td>");
+				out.print(current_wishlist.getString("name"));
+				out.println("</td><td>");
+				out.print(current_wishlist.getString("brand"));
+				out.println("</td><td>");
+				out.print(current_wishlist.getString("year"));
+				out.println("</td><td>");
+				out.print(current_wishlist.getString("desc_1"));
+				out.println("</td><td>");
+				out.print(current_wishlist.getString("desc_2"));
+				out.println("</td><td>");
+				out.print(current_wishlist.getString("desc_3"));
+				out.println("</td><td>");
+				out.print(current_wishlist.getString("created_by"));
+				out.println("</td><td>");
+				
+				out.println("<form action='removeWishlistItems.jsp' method='POST'>");
+				out.println("<input type='hidden' name='user_id' value='" + user_id + "' >");
+				out.println("<input type='hidden' name='category_id' value='" + cat_id + "' >");
+				out.println("<input type='hidden' name='item_id' value='" + item_id + "' >");
+				out.println("<input type='hidden' name='subcategory_id' value='" + subcat_id + "' >");
+				out.println("<input type='submit' value='Remove From Wishlist'>");
+				out.println("</form>");
+				
+				out.println("</td></tr>");
+			}
+			
+			out.println("</table><br/><br/>");
+		}
+		
+		
+		
 	%>
-
-
 	<br />
 	<a href='userLogin.jsp'>Go back</a>
 

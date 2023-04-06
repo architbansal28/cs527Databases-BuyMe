@@ -22,17 +22,16 @@
 		String subcat_id = request.getParameter("subcategory_id");
 		String item_id = request.getParameter("item_id");
 		
-		String insert = "INSERT INTO wishlist(user_id, cat_id, subcat_id, item_id)"
-				+ "VALUES (?, ?, ?, ?)";
+		String delete = "DELETE FROM wishlist where user_id=? AND cat_id=? AND subcat_id=? AND item_id=?";
 		
-		PreparedStatement ps = con.prepareStatement(insert);
+		PreparedStatement ps = con.prepareStatement(delete);
 		ps.setString(1, user_id);
 		ps.setString(2, cat_id);
 		ps.setString(3, subcat_id);
 		ps.setString(4, item_id);
 		ps.executeUpdate();
 		
-		out.println("Item added successfully!");
+		out.println("Item removed successfully!");
 		
 		out.println("<br><a href='wishlist.jsp'>Go back</a>");
 		out.println("<br><a href='userLogin.jsp'>Go to home page.</a>");
