@@ -11,23 +11,39 @@
 </head>
 <body>
 
-<%
-		ApplicationDB db = new ApplicationDB();	
-		Connection con = db.getConnection();
-		
-		Statement stmt = con.createStatement();
-		
-		//Cannot add items added by user to wishlist
-		ResultSet result = stmt.executeQuery("select * from item where created_by !='" + session.getAttribute("user").toString()+ "'");
-		
+	<%
+	ApplicationDB db = new ApplicationDB();
+	Connection con = db.getConnection();
+
+	Statement stmt = con.createStatement();
+	String user_id = session.getAttribute("user").toString();
+	
+	//Cannot add items added by user to wishlist
+	ResultSet result = stmt.executeQuery("select * from item where created_by !='" + user_id + "'");
+	
+	//ResultSet result = stmt.executeQuery("select * from item");
+
+	if (result.next() == false) {
+		out.println("No items in the inventory");
+	}
+
+	else{
+
 		out.println("<b> All available items:</b><br/>");
 		out.println("<table border='1'>");
-		out.println("<tr><th>Category</th><th>Subcategory</th><th>Name</th><th>Brand</th><th>Year</th><th>Description</th><th>Description</th><th>Description</th><th>Seller</th><th>Add to Wishlist</th></tr>");
-		while (result.next()) {
+		out.println(
+		"<tr><th>Category</th><th>Subcategory</th><th>Name</th><th>Brand</th><th>Year</th><th>Description</th><th>Description</th><th>Description</th><th>Seller</th><th>Add to Wishlist</th></tr>");
+
+		do{
+			
+			String item_id = result.getString("item_id");
+			String cat_id = result.getString("cat_id");
+			String subcat_id = result.getString("subcat_id");
+			
 			out.println("<tr><td>");
-			out.print(result.getString("cat_id"));
+			out.print(cat_id);
 			out.println("</td><td>");
-			out.print(result.getString("subcat_id"));
+			out.print(subcat_id);
 			out.println("</td><td>");
 			out.print(result.getString("name"));
 			out.println("</td><td>");
@@ -43,14 +59,25 @@
 			out.println("</td><td>");
 			out.print(result.getString("created_by"));
 			out.println("</td><td>");
-			out.print("Add To Wishlist"); //TODO: add form for adding to wishlist
+			
+			out.println("<form action='addWishlistItems.jsp' method='POST'>");
+			out.println("<input type='hidden' name='user_id' value='" + user_id + "' >");
+			out.println("<input type='hidden' name='category_id' value='" + cat_id + "' >");
+			out.println("<input type='hidden' name='item_id' value='" + item_id + "' >");
+			out.println("<input type='hidden' name='subcategory_id' value='" + subcat_id + "' >");
+			out.println("<input type='submit' value='Add to Wishlist'>");
+			out.println("</form>");
+			
 			out.println("</td></tr>");
-		}
+		}while (result.next());
+		
 		out.println("</table><br/><br/>");
+	}
 	%>
 
 
-<br/><a href='userLogin.jsp'>Go back</a>
+	<br />
+	<a href='userLogin.jsp'>Go back</a>
 
 </body>
 </html>
