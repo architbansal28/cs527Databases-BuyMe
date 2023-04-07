@@ -19,7 +19,7 @@
 	<b>As a buyer, you can:</b><br/>
 	<a href='wishlist.jsp'>Add to Wishlist</a><br/>
 	<a href='placeBid.jsp'>Place bid</a><br/>
-	<a href='enrollForAutobid.jsp'>Enroll for autobid</a><br/>
+	<a href='enrollForAutobid.jsp'>Enroll for autobid</a><br/><br/>
 	
 	<a href='deleteAccount.jsp'>Delete account</a><br/>
 	<a href='changePassword.jsp'>Change password</a><br/>
