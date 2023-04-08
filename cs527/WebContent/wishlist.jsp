@@ -17,6 +17,7 @@
 
 	Statement stmt = con.createStatement();
 	String user_id = session.getAttribute("user").toString();
+		
 	
 	//Cannot add items added by user to wishlist
 	ResultSet result = stmt.executeQuery("select * from item where created_by !='" + user_id + "'");
