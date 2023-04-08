@@ -242,6 +242,7 @@ DROP TABLE IF EXISTS `auto_bid`;
 CREATE TABLE `auto_bid` (
   `user_id` varchar(20) NOT NULL,
   `auction_id` int NOT NULL,
+  `timestamp` datetime NOT NULL,
   `upper_limit` int NOT NULL,
   PRIMARY KEY (`user_id`,`auction_id`),
   FOREIGN KEY (`auction_id`) REFERENCES `auction` (`auction_id`) ON DELETE CASCADE ON UPDATE CASCADE,
