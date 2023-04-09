@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add To Wishlist</title>
+<title> Filter From Wishlist</title>
 </head>
 <body>
 
@@ -33,11 +33,11 @@ out.println("<tr><td>Subcategory:</td><td><select id='subcategory' name='subcate
 
 out.println("<tr><td>Name:</td><td><input type='text' name='name'/></td></tr>");
 out.println("<tr><td>Brand:</td><td><input type='text' name='brand'/></td></tr>");
-out.println("<tr><td>Years old:</td><td><input type='number' name='year_old'/></td></tr>");
+out.println("<tr><td>Newer than Year:</td><td><input type='number' name='year'/></td></tr>");
 out.println("<tr><td>Price Range:</td><td><input type='text' name='price_low'/></td> <td><input type='text' name='price_high'/></td></tr>");
 out.println("<tr><td>Color:</td><td><input type='text' name='color'/></td></tr>");
 out.println("<tr><td>Transmission:</td><td><input type='text' name='desc_3'/></td></tr>");
-
+out.println("<input type='hidden' name='going_back' value='false'>");
 out.println("</table>&nbsp;<br/> <input type='submit' value='Submit'>");
 out.println("</form>");
 

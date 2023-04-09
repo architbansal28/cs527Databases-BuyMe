@@ -17,10 +17,57 @@
 
 	Statement stmt = con.createStatement();
 	String user_id = session.getAttribute("user").toString();
-		
+	
+	
+	String going_back = request.getParameter("going_back");
+	
+	String cat_id = request.getParameter("category");
+	String subcat_id = request.getParameter("subcategory");
+	String name = request.getParameter("name");
+	String brand = request.getParameter("brand");
+	String year = request.getParameter("year");
+	String color = request.getParameter("color");
+	String transmission = request.getParameter("desc_3");
+	String price_low = request.getParameter("price_low");
+	String price_high = request.getParameter("price_high");
+	
+	out.println(cat_id);
+	out.println(subcat_id);
+	out.println(name);
+	out.println(brand);
+	out.println(year);
+	out.println(color);
+	out.println(transmission);
+	out.println(price_low);
+	out.println(price_high);
+	
+	
+	String WishlistQuery = "select * from item where created_by !='" + user_id + "'";
+	
+	if(!going_back.matches("true")){
+	
+		if(!cat_id.isEmpty()){
+			WishlistQuery += " AND cat_id LIKE '" + cat_id + "'";
+		}
+		if(!subcat_id.isEmpty()){
+			WishlistQuery += " AND subcat_id LIKE '" + subcat_id + "'";
+		}
+		if(!name.isEmpty()){
+			WishlistQuery += " AND name LIKE '" + name + "'";
+		}
+		if(!brand.isEmpty()){
+			WishlistQuery += " AND brand LIKE '" + brand + "'";
+		}
+		if(!year.isEmpty()){
+			WishlistQuery += " AND year >= '" + year + "'";
+		}
+	}
+	
+	out.println(WishlistQuery);
+	
 	
 	//Cannot add items added by user to wishlist
-	ResultSet result = stmt.executeQuery("select * from item where created_by !='" + user_id + "'");
+	ResultSet result = stmt.executeQuery(WishlistQuery);
 	
 	//ResultSet result = stmt.executeQuery("select * from item");
 
@@ -38,8 +85,8 @@
 		do{
 			
 			String item_id = result.getString("item_id");
-			String cat_id = result.getString("cat_id");
-			String subcat_id = result.getString("subcat_id");
+			cat_id = result.getString("cat_id");
+			subcat_id = result.getString("subcat_id");
 			
 			out.println("<tr><td>");
 			out.print(cat_id);
@@ -95,8 +142,8 @@
 			while (current_wishlist.next()){
 				
 				String item_id = current_wishlist.getString("item_id");
-				String cat_id = current_wishlist.getString("cat_id");
-				String subcat_id = current_wishlist.getString("subcat_id");
+				cat_id = current_wishlist.getString("cat_id");
+				subcat_id = current_wishlist.getString("subcat_id");
 				
 				//result = stmt.executeQuery("select * from item where item_id ='" + item_id + "'");
 				//result.next();
@@ -135,8 +182,7 @@
 			out.println("</table><br/><br/>");
 		}
 		
-		
-		
+		con.close();		
 	%>
 	<br />
 	<a href='userLogin.jsp'>Go back</a>

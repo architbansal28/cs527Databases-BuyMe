@@ -34,7 +34,12 @@
 		
 		out.println("Item added successfully!");
 		
-		out.println("<br><a href='wishlist.jsp'>Go back</a>");
+		
+		out.println("<form action='wishlist.jsp' method='POST'>");
+		out.println("<input type='hidden' name='going_back' value='true'>");
+		out.println("<input type='submit' value='Go Back'>");
+		out.println("</form>");
+		
 		out.println("<br><a href='userLogin.jsp'>Go to home page.</a>");
 			
 		con.close();
