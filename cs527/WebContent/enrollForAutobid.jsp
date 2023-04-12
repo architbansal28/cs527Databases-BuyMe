@@ -80,13 +80,13 @@
 		out.println("</table>&nbsp;<br/> <input type='submit' value='Submit'>");
 		out.println("</form><br/><br/>");
 		
-		out.println("<b>Delete autobid:</b><br/>");
+		/* out.println("<b>Delete autobid:</b><br/>");
 		out.println("<form action='deleteAutobid.jsp' method='POST'>");
 		out.println("<table>");
 		out.println("<tr><td>Auction ID:</td><td><input type='text' name='auction_id' required/></td></tr>");
 		out.println("<tr><td>Upper limit:</td><td><input type='number' name='amount' required/></td><td><div id='amountError'></div></td></tr>");
 		out.println("</table>&nbsp;<br/> <input type='submit' value='Submit'>");
-		out.println("</form><br/>");
+		out.println("</form><br/>"); */
 
 		con.close();
 	%>
