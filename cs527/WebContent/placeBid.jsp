@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 <title>BuyMe - Place bid</title>
 </head>
 <body>
@@ -18,7 +19,7 @@
 		ResultSet result = stmt.executeQuery("SELECT * FROM auction a JOIN item i ON a.item_id=i.item_id AND a.cat_id=i.cat_id AND a.subcat_id=i.subcat_id WHERE a.starting_time<=NOW() AND a.closing_time>=NOW() AND i.created_by!='"+ session.getAttribute("user").toString()+"'");
 		
 		out.println("<b>Live auctions:</b><br/>");
-		out.println("<table border='1'>");
+		out.println("<table class='styled-table'>");
 		out.println("<tr><th>Auction ID</th><th>Category ID</th><th>Subcategory ID</th><th>Item ID</th><th>Name</th><th>Brand</th><th>Starting time</th><th>Closing time</th><th>Initial price</th><th>Increment price</th><th>Current price</th></tr>");
 		while (result.next()) {
 			out.println("<tr><td>");
@@ -50,7 +51,7 @@
 		result = stmt.executeQuery("SELECT * FROM bid WHERE user_id='" + session.getAttribute("user").toString()+"' ORDER BY auction_id DESC, timestamp DESC");
 		
 		out.println("<b>Your bids:</b><br/>");
-		out.println("<table border='1'>");
+		out.println("<table class='styled-table'>");
 		out.println("<tr><th>Bid ID</th><th>Auction ID</th><th>Timestamp</th><th>Amount</th></tr>");
 		while (result.next()) {
 			out.println("<tr><td>");

@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 <title>BuyMe - Your items</title>
 </head>
 <body>
@@ -18,7 +19,7 @@
 		ResultSet result = stmt.executeQuery("select * from item where created_by='" + session.getAttribute("user").toString()+ "'");
 		
 		out.println("<b>Your items:</b><br/>");
-		out.println("<table border='1'>");
+		out.println("<table class='styled-table'>");
 		out.println("<tr><th>Category ID</th><th>Subcategory ID</th><th>Item ID</th><th>Name</th><th>Brand</th><th>Year</th><th>Description</th><th>Description</th><th>Description</th></tr>");
 		while (result.next()) {
 			out.println("<tr><td>");

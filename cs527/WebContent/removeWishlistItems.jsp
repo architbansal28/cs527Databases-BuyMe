@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add To Wishlist</title>
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+<title>BuyMe - Your wishlist</title>
 </head>
 <body>
 

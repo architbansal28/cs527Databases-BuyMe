@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add To Wishlist</title>
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+<title>BuyMe - Your wishlist</title>
 </head>
 <body>
 
@@ -40,6 +41,7 @@
 	out.println(transmission);
 	out.println(price_low);
 	out.println(price_high);
+	out.println("<br/>");
 	
 	
 	String WishlistQuery = "select * from item where created_by !='" + user_id + "'";
@@ -63,7 +65,7 @@
 		}
 	}
 	
-	out.println(WishlistQuery);
+	//out.println(WishlistQuery);
 	
 	
 	//Cannot add items added by user to wishlist
@@ -78,7 +80,7 @@
 	else{
 
 		out.println("<b> All available items:</b><br/>");
-		out.println("<table border='1'>");
+		out.println("<table class='styled-table'>");
 		out.println(
 		"<tr><th>Category</th><th>Subcategory</th><th>Name</th><th>Brand</th><th>Year</th><th>Description</th><th>Description</th><th>Description</th><th>Seller</th><th>Add to Wishlist</th></tr>");
 
@@ -135,7 +137,7 @@
 		
 		else{
 			out.println("<b> Wishlist items:</b><br/>");
-			out.println("<table border='1'>");
+			out.println("<table class='styled-table'>");
 			out.println(
 			"<tr><th>Category</th><th>Subcategory</th><th>Name</th><th>Brand</th><th>Year</th><th>Description</th><th>Description</th><th>Description</th><th>Seller</th><th>Remove from Wishlist</th></tr>");
 

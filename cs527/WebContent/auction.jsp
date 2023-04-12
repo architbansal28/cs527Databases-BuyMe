@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 <title>BuyMe - Your auctions</title>
 </head>
 <body>
@@ -18,7 +19,7 @@
 		ResultSet result = stmt.executeQuery("SELECT * FROM auction a JOIN item i ON a.item_id=i.item_id AND a.cat_id=i.cat_id AND a.subcat_id=i.subcat_id WHERE i.created_by='" + session.getAttribute("user").toString() + "' AND a.closing_time<NOW()");
 		
 		out.println("<b>Past auctions:</b><br/>");
-		out.println("<table border='1'>");
+		out.println("<table class='styled-table'>");
 		out.println("<tr><th>Auction ID</th><th>Category ID</th><th>Subcategory ID</th><th>Item ID</th><th>Name</th><th>Brand</th><th>Starting time</th><th>Closing time</th><th>Initial price</th><th>Increment price</th><th>Minimum price</th><th>Winner</th><th>Price sold</th></tr>");
 		while (result.next()) {
 			out.println("<tr><td>");
@@ -55,7 +56,7 @@
 		ResultSet result1 = stmt1.executeQuery("SELECT * FROM auction a JOIN item i ON a.item_id=i.item_id AND a.cat_id=i.cat_id AND a.subcat_id=i.subcat_id WHERE i.created_by='" + session.getAttribute("user").toString() + "' AND a.starting_time<=NOW() AND a.closing_time>=NOW()");
 		
 		out.println("<b>Current auctions:</b><br/>");
-		out.println("<table border='1'>");
+		out.println("<table class='styled-table'>");
 		out.println("<tr><th>Auction ID</th><th>Category ID</th><th>Subcategory ID</th><th>Item ID</th><th>Name</th><th>Brand</th><th>Starting time</th><th>Closing time</th><th>Initial price</th><th>Increment price</th><th>Minimum price</th><th>Current winner</th><th>Current price</th></tr>");
 		while (result1.next()) {
 			out.println("<tr><td>");
@@ -92,7 +93,7 @@
 		ResultSet result2 = stmt2.executeQuery("SELECT * FROM auction a JOIN item i ON a.item_id=i.item_id AND a.cat_id=i.cat_id AND a.subcat_id=i.subcat_id WHERE i.created_by='" + session.getAttribute("user").toString() + "' AND a.starting_time>NOW()");
 		
 		out.println("<b>Future auctions:</b><br/>");
-		out.println("<table border='1'>");
+		out.println("<table class='styled-table'>");
 		out.println("<tr><th>Auction ID</th><th>Category ID</th><th>Subcategory ID</th><th>Item ID</th><th>Name</th><th>Brand</th><th>Starting time</th><th>Closing time</th><th>Initial price</th><th>Increment price</th><th>Minimum price</th></tr>");
 		while (result2.next()) {
 			out.println("<tr><td>");

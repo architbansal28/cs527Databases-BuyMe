@@ -8,6 +8,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 	<title>BuyMe - Login</title>
 </head>
 	
@@ -22,7 +23,7 @@
 			<tr>
 				<td>Password:</td><td><input type="password" name="password" required /></td>
 			</tr>
-		</table>
+		</table><br/>
 		<input type="submit" value="Submit"/>
 	</form><br/><br/>
 	
