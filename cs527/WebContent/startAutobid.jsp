@@ -34,6 +34,7 @@
 			int amount_new = Integer.parseInt(amount);
 			int amount_auction = Integer.parseInt(result2.getString("curr_price"));
 			int increment = Integer.parseInt(result2.getString("increment_price"));
+			String curr_winner = result2.getString("curr_winner");
 			if (result1.next()) {
 				int amount_old = Integer.parseInt(result1.getString("upper_limit"));
 				String winner_old = result1.getString("user_id");
@@ -57,7 +58,27 @@
 						ps1.setString(4, Integer.toString(amount_current));
 						ps1.executeUpdate();
 					}
-				} else if (amount_new>amount_old) {
+				} else if (amount_new>amount_auction && amount_auction>=amount_old && !curr_winner.equals(session.getAttribute("user").toString())) {
+					int amount_current = amount_auction + increment;
+					if (amount_current<=amount_new) {
+						//update winner = new entry
+						String update = "UPDATE auction SET curr_winner=?, curr_price=? WHERE auction_id=?";
+						PreparedStatement ps = con.prepareStatement(update);
+						ps.setString(1, session.getAttribute("user").toString());
+						ps.setString(2, Integer.toString(amount_current));
+						ps.setString(3, auction_id);
+						ps.executeUpdate();
+						
+						String insert = "INSERT INTO bid(user_id, auction_id, timestamp, amount)"
+								+ "VALUES (?, ?, ?, ?)";
+						PreparedStatement ps1 = con.prepareStatement(insert);
+						ps1.setString(1, session.getAttribute("user").toString());
+						ps1.setString(2, auction_id);
+						ps1.setString(3, now.toString());
+						ps1.setString(4, Integer.toString(amount_current));
+						ps1.executeUpdate();
+					}
+				} else if (amount_new>amount_old && amount_old>=amount_auction) {
 					int amount_current = amount_old + increment;
 					if (amount_current<=amount_new) {
 						//update winner = new entry
@@ -81,7 +102,7 @@
 			} else {
 				//update winner = new entry
 				int amount_current = amount_auction + increment;
-				if (amount_current<=amount_new) {
+				if (amount_current<=amount_new && !curr_winner.equals(session.getAttribute("user").toString())) {
 					String update = "UPDATE auction SET curr_winner=?, curr_price=? WHERE auction_id=?";
 					PreparedStatement ps = con.prepareStatement(update);
 					ps.setString(1, session.getAttribute("user").toString());
@@ -102,12 +123,12 @@
 			
 			String insert = "INSERT INTO auto_bid(user_id, auction_id, timestamp, upper_limit)"
 					+ "VALUES (?, ?, ?, ?)";
-			PreparedStatement ps = con.prepareStatement(insert);
-			ps.setString(1, session.getAttribute("user").toString());
-			ps.setString(2, auction_id);
-			ps.setString(3, now.toString());
-			ps.setString(4, amount);
-			ps.executeUpdate();
+			PreparedStatement ps2 = con.prepareStatement(insert);
+			ps2.setString(1, session.getAttribute("user").toString());
+			ps2.setString(2, auction_id);
+			ps2.setString(3, now.toString());
+			ps2.setString(4, amount);
+			ps2.executeUpdate();
 			
 			out.println("Autobid started successfully! <a href='placeBid.jsp'>Go back</a>.");
 		}
