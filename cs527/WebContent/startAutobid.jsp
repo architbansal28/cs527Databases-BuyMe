@@ -134,7 +134,7 @@
 				ps2.setString(4, amount);
 				ps2.executeUpdate();
 				
-				out.println("Autobid started successfully! <a href='placeBid.jsp'>Go back</a>.");
+				out.println("Autobid started successfully! <a href='enrollForAutobid.jsp'>Go back</a>.");
 			}
 			
 		}

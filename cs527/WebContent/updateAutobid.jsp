@@ -133,7 +133,7 @@
 				ps2.setString(4, auction_id);
 				ps2.executeUpdate();
 				
-				out.println("Autobid updated successfully! <a href='placeBid.jsp'>Go back</a>.");
+				out.println("Autobid updated successfully! <a href='enrollForAutobid.jsp'>Go back</a>.");
 			}
 		} else {	
 			out.println("Not enrolled in autobid for this auction! <a href='enrollForAutobid.jsp'>Go back</a>.");
