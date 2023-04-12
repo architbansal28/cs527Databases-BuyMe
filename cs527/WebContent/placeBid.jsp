@@ -15,7 +15,7 @@
 		Connection con = db.getConnection();
 		
 		Statement stmt = con.createStatement();
-		ResultSet result = stmt.executeQuery("SELECT * FROM auction a JOIN item i ON a.item_id=i.item_id AND a.cat_id=i.cat_id AND a.subcat_id=i.subcat_id WHERE a.starting_time<=NOW() AND a.closing_time>=NOW()");
+		ResultSet result = stmt.executeQuery("SELECT * FROM auction a JOIN item i ON a.item_id=i.item_id AND a.cat_id=i.cat_id AND a.subcat_id=i.subcat_id WHERE a.starting_time<=NOW() AND a.closing_time>=NOW() AND i.created_by!='"+ session.getAttribute("user").toString()+"'");
 		
 		out.println("<b>Live auctions:</b><br/>");
 		out.println("<table border='1'>");
@@ -47,7 +47,7 @@
 		}
 		out.println("</table><br/><br/>");
 		
-		result = stmt.executeQuery("SELECT * FROM bid WHERE user_id='" + session.getAttribute("user").toString()+"'");
+		result = stmt.executeQuery("SELECT * FROM bid WHERE user_id='" + session.getAttribute("user").toString()+"' ORDER BY auction_id DESC, timestamp DESC");
 		
 		out.println("<b>Your bids:</b><br/>");
 		out.println("<table border='1'>");

@@ -15,7 +15,7 @@
 		Connection con = db.getConnection();
 		
 		Statement stmt = con.createStatement();
-		ResultSet result = stmt.executeQuery("SELECT * FROM auction a JOIN item i ON a.item_id=i.item_id AND a.cat_id=i.cat_id AND a.subcat_id=i.subcat_id WHERE a.starting_time<=NOW() AND a.closing_time>=NOW()");
+		ResultSet result = stmt.executeQuery("SELECT * FROM auction a JOIN item i ON a.item_id=i.item_id AND a.cat_id=i.cat_id AND a.subcat_id=i.subcat_id WHERE a.starting_time<=NOW() AND a.closing_time>=NOW() AND i.created_by!='"+ session.getAttribute("user").toString()+"'");
 		
 		out.println("<b>Live auctions:</b><br/>");
 		out.println("<table border='1'>");
@@ -51,12 +51,14 @@
 		
 		out.println("<b>Your autobids:</b><br/>");
 		out.println("<table border='1'>");
-		out.println("<tr><th>Auction ID</th><th>Upper limit</th></tr>");
+		out.println("<tr><th>Auction ID</th><th>Upper limit</th><th>Last updated</th></tr>");
 		while (result.next()) {
 			out.println("<tr><td>");
 			out.print(result.getString("auction_id"));
 			out.println("</td><td>");
 			out.print(result.getString("upper_limit"));
+			out.println("</td><td>");
+			out.print(result.getString("timestamp"));
 			out.println("</td></tr>");
 		}
 		out.println("</table><br/><br/>");

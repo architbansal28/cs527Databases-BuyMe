@@ -19,10 +19,8 @@
 		String amount = request.getParameter("amount");
 		
 		ResultSet result = stmt.executeQuery("select * from auction where auction_id='" + auction_id+"'");
-		int increment_price = 0;
-		while (result.next()) {
-			increment_price += Integer.parseInt(result.getString("curr_price")) + Integer.parseInt(result.getString("increment_price"));
-		}
+		result.next();
+		int increment_price = Integer.parseInt(result.getString("curr_price")) + Integer.parseInt(result.getString("increment_price"));
 		
 		if (Integer.parseInt(amount) < increment_price) {
 			out.println("Invalid amount! <a href='placeBid.jsp'>Go back.</a>");
@@ -43,6 +41,36 @@
 			ps.setString(2, amount);
 			ps.setString(3, auction_id);
 			ps.executeUpdate();
+			
+			//check for autobid
+			Statement stmt1 = con.createStatement();
+			ResultSet result1 = stmt1.executeQuery("select * from auto_bid where auction_id='" + auction_id+"'order by upper_limit desc, timestamp asc");
+			if (result1.next()) {
+				int amount_autobid = Integer.parseInt(result1.getString("upper_limit"));
+				String winner_autobid = result1.getString("user_id");
+				//autobid should not override bid by same user
+				if (!winner_autobid.equals(session.getAttribute("user").toString())) {
+					increment_price = Integer.parseInt(amount) + Integer.parseInt(result.getString("increment_price"));
+					if (increment_price<=amount_autobid) {
+						//update winner
+						String update1 = "UPDATE auction SET curr_winner=?, curr_price=? WHERE auction_id=?";
+						PreparedStatement ps1 = con.prepareStatement(update1);
+						ps1.setString(1, winner_autobid);
+						ps1.setString(2, Integer.toString(increment_price));
+						ps1.setString(3, auction_id);
+						ps1.executeUpdate();
+						
+						String insert1 = "INSERT INTO bid(user_id, auction_id, timestamp, amount)"
+								+ "VALUES (?, ?, ?, ?)";
+						ps1 = con.prepareStatement(insert1);
+						ps1.setString(1, winner_autobid);
+						ps1.setString(2, auction_id);
+						ps1.setString(3, now.toString());
+						ps1.setString(4, Integer.toString(increment_price));
+						ps1.executeUpdate();
+					}
+				}
+			}
 			
 			out.println("Bid added successfully! <a href='placeBid.jsp'>Go back.</a>");
 		}
