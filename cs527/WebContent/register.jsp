@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	Create new account
+	<b>Create new account</b>
 	<form action="registerNewUser.jsp" method="POST">
 		<table>
 			<tr>
@@ -27,8 +27,8 @@
 			<tr>
 				<td>Password:</td><td><input type="password" name="password" required/></td>
 			</tr>
-		</table>
-		<input type="submit" value="Submit"/>
+		</table><br/>
+		<input type="submit" value="Register"/>
 	</form>
 
 </body>

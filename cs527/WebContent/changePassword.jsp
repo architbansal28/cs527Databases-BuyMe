@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	Change password
+	<b>Change password</b>
 	<form action="checkChangePassword.jsp" method="POST">
 		<table>
 			<tr>

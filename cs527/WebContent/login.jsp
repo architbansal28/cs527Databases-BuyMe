@@ -24,7 +24,7 @@
 				<td>Password:</td><td><input type="password" name="password" required /></td>
 			</tr>
 		</table><br/>
-		<input type="submit" value="Submit"/>
+		<input type="submit" value="Login"/>
 	</form><br/><br/>
 	
 	Not a member? <a href='register.jsp'>Register</a>
