@@ -28,9 +28,10 @@
 	String brand = request.getParameter("brand");
 	String year = request.getParameter("year");
 	String color = request.getParameter("color");
+	String fuel = request.getParameter("fuel");
 	String transmission = request.getParameter("desc_3");
-	String price_low = request.getParameter("price_low");
-	String price_high = request.getParameter("price_high");
+	//String price_low = request.getParameter("price_low");
+	//String price_high = request.getParameter("price_high");
 	
 	/* out.println(cat_id);
 	out.println(subcat_id);
@@ -62,6 +63,15 @@
 		}
 		if(!year.isEmpty()){
 			WishlistQuery += " AND year >= '" + year + "'";
+		}
+		if(!color.isEmpty()){
+			WishlistQuery += " AND desc_1 LIKE '" + color + "'";
+		}
+		if(!fuel.isEmpty()){
+			WishlistQuery += " AND desc_2 LIKE '" + fuel + "'";
+		}
+		if(!transmission.isEmpty()){
+			WishlistQuery += " AND desc_3 LIKE '" + transmission + "'";
 		}
 	}
 	
@@ -187,7 +197,7 @@
 	out.println("<b>Filter:</b><br/>");
 	out.println("<form action='wishlist.jsp' method='POST'>");
 	out.println("<table>");
-	out.println("<tr><td>Category:</td><td><select id='category' name='category' size=1 onchange='populateSecondDropdown()'>");
+	out.println("<tr><td>Category:</td><td><select id='category' name='category' size=1 onclick='populateSecondDropdown()' onchange='populateSecondDropdown()'>");
 
 	//while (result.next()) {
 	out.println("<option value='VEH'>Vehicle</option>");
@@ -202,8 +212,9 @@
 	out.println("<tr><td>Name:</td><td><input type='text' name='name'/></td></tr>");
 	out.println("<tr><td>Brand:</td><td><input type='text' name='brand'/></td></tr>");
 	out.println("<tr><td>Newer than Year:</td><td><input type='number' name='year'/></td></tr>");
-	out.println("<tr><td>Price Range:</td><td><input type='number' name='price_low'/></td> <td><input type='number' name='price_high'/></td></tr>");
+	//out.println("<tr><td>Price Range:</td><td><input type='number' name='price_low'/></td> <td><input type='number' name='price_high'/></td></tr>");
 	out.println("<tr><td>Color:</td><td><input type='text' name='color'/></td></tr>");
+	out.println("<tr><td>Fuel:</td><td><input type='text' name='fuel'/></td></tr>");
 	out.println("<tr><td>Transmission:</td><td><input type='text' name='desc_3'/></td></tr>");
 	out.println("<input type='hidden' name='going_back' value='false'>");
 	out.println("</table>&nbsp;<br/> <input type='submit' value='Submit'>");
@@ -215,6 +226,35 @@
 <br />
 <a href='wishlist.jsp'>Clear all filters</a><br/>
 <a href='userLogin.jsp'>Go back</a>
+
+<script>
+	function populateSecondDropdown() {
+		const firstDropdown = document.getElementById("category");
+		const secondDropdown = document.getElementById("subcategory");
+		const selectedOption = firstDropdown.value;
+		secondDropdown.innerHTML = "";
+		
+		if (selectedOption === "VEH") {
+	    	const option1 = document.createElement("option");
+	    	option1.value = "CAR";
+	    	option1.text = "Car";
+	    	secondDropdown.add(option1);
+        	const option2 = document.createElement("option");
+	    	option2.value = "BIK";
+	    	option2.text = "Motorbike";
+	    	secondDropdown.add(option2);
+	    	const option3 = document.createElement("option");
+	    	option3.value = "TRU";
+	    	option3.text = "Truck";
+	    	secondDropdown.add(option3);
+	    } else {
+	    	const option1 = document.createElement("option");
+	    	option1.value = "";
+	    	option1.text = "";
+	    	secondDropdown.add(option1);
+	    }
+	}
+</script>
 
 </body>
 </html>
