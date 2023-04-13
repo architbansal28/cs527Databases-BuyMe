@@ -1,22 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.LocalDateTime"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>BuyMe - Submit Query</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    <title>BuyMe - Raise query</title>
 </head>
 <body>
-    <h1>Submit Query</h1>
+    <b>Submit Query</b>
 
 <%
 	// Retrieve the form data
 	String endUserId = session.getAttribute("user").toString(); // Replace with the actual end user ID
 	String questionText = request.getParameter("description");
-	Timestamp timestampAsked = new Timestamp(System.currentTimeMillis());
+	//Timestamp timestampAsked = new Timestamp(System.currentTimeMillis());
+	LocalDateTime now = LocalDateTime.now();
 
 	// Add the question to the database
 	
@@ -33,7 +35,7 @@
 			stmt = con.prepareStatement(sql);
 
 			stmt.setString(1, questionText);
-			stmt.setTimestamp(2, timestampAsked);
+			stmt.setString(2, now.toString());
 			stmt.setString(3, endUserId);
 			stmt.executeUpdate();
 	} catch (SQLException e) {

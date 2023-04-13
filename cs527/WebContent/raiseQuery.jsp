@@ -6,30 +6,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Raise Query</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>BuyMe - Raise query</title>
 	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 </head>
 <body>
-<h4>Welcome <%=session.getAttribute("name")%> (<%=session.getAttribute("user")%>) to Customer Care</h4>
-	<h1>Raise Query</h1>
+<h4>Welcome to Customer Care</h4>
+	<b>Raise Query:</b>
 	<form action="submitQuery.jsp" method="POST">
-		<label for="description">Description:</label>
-		<input type="text" name="description" id="description" required>
-		<br><br>
+		<table><tr>
+		<td>Description:</td>
+		<td><input type="text" name="description" id="description" required></td>
+		</tr></table>
+		<br/>
 		<input type="submit" value="Submit">
 	</form>
-	Clicked by mistake? <a href='success.jsp'>Go back to menu</a>
 	<br><br>
-	<h2>My Queries</h2>
-	<table border="1">
+	<b>Your queries:</b>
+	<table class='styled-table'>
 		<tr>
 			<th>Customer Rep ID</th>
 			<th>Question Text</th>
-			<th>Customer Response</th>
+			<th>Response</th>
 			<th>Status</th>
-			<th>Timestamp Asked</th>
-			<th>Timestamp Resolved</th>
+			<th>Time asked</th>
+			<th>Time resolved</th>
 		</tr>
 		<%
 			// Retrieve the list of questions asked by the user
@@ -70,6 +71,7 @@
 				try { con.close(); } catch (Exception e) {}
 			}
 		%>
-	</table>
+	</table><br/>
+	<a href='userLogin.jsp'>Go back</a>
 </body>
 </html>
