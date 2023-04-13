@@ -8,6 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Raise Query</title>
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 </head>
 <body>
 <h4>Welcome <%=session.getAttribute("name")%> (<%=session.getAttribute("user")%>) to Customer Care</h4>
