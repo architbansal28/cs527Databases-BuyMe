@@ -51,7 +51,7 @@
 		out.println("<b>Add new item:</b><br/>");
 		out.println("<form action='checkNewItem.jsp' method='POST'>");
 		out.println("<table>");
-		out.println("<tr><td>Category:</td><td><select id='category' name='category' size=1 onchange='populateSecondDropdown()'>");
+		out.println("<tr><td>Category:</td><td><select id='category' name='category' size=1 onclick='populateSecondDropdown()' onchange='populateSecondDropdown()'>");
 		
 		while (result1.next()) {
 			out.println("<option value=" + result1.getString("cat_id") + ">" + result1.getString("name") + "</option>");
@@ -63,9 +63,9 @@
 		out.println("<tr><td>Name:</td><td><input type='text' name='name' required/></td></tr>");
 		out.println("<tr><td>Brand:</td><td><input type='text' name='brand' required/></td></tr>");
 		out.println("<tr><td>Year:</td><td><input type='number' name='year' min='1500' max='2099' step='1' required/></td></tr>");
-		out.println("<tr><td>Desc:</td><td><input type='text' name='desc_1'/></td></tr>");
-		out.println("<tr><td>Desc:</td><td><input type='text' name='desc_2'/></td></tr>");
-		out.println("<tr><td>Desc:</td><td><input type='text' name='desc_3'/></td></tr>");
+		out.println("<tr><td>Desc <i>(e.g., color):</td><td><input type='text' name='desc_1'/></td></tr>");
+		out.println("<tr><td>Desc <i>(e.g., fuel):</td><td><input type='text' name='desc_2'/></td></tr>");
+		out.println("<tr><td>Desc <i>(e.g., transmission):</td><td><input type='text' name='desc_3'/></td></tr>");
 		
 		out.println("</table>&nbsp;<br/> <input type='submit' value='Submit'>");
 		out.println("</form>");
@@ -99,6 +99,11 @@
 		    	option3.value = "TRU";
 		    	option3.text = "Truck";
 		    	secondDropdown.add(option3);
+		    } else {
+		    	const option1 = document.createElement("option");
+		    	option1.value = "";
+		    	option1.text = "";
+		    	secondDropdown.add(option1);
 		    }
 		}
 	</script>
