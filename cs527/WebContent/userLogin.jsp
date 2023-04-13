@@ -18,8 +18,8 @@
 	<a href='auction.jsp'>View your auctions</a><br/><br/>
 	
 	<b>As a buyer, you can:</b><br/>
-	<a href='filter_wishlist.jsp'>Add to Wishlist</a><br/>
-	<!-- <a href='wishlist.jsp'>Add to Wishlist</a><br/> -->
+	<!-- <a href='filter_wishlist.jsp'>Add to Wishlist</a><br/> -->
+	<a href='wishlist.jsp'>Add to Wishlist</a><br/>
 	<a href='placeBid.jsp'>Place bid</a><br/>
 	<a href='enrollForAutobid.jsp'>Enroll for autobid</a><br/><br/>
 	

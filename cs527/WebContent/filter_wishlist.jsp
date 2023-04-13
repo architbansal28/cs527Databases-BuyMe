@@ -19,15 +19,17 @@ Connection con = db.getConnection();
 Statement stmt = con.createStatement();
 ResultSet result = stmt.executeQuery("select * from category");
 
-
 out.println("<b>Filter:</b><br/>");
 out.println("<form action='wishlist.jsp' method='POST'>");
 out.println("<table>");
 out.println("<tr><td>Category:</td><td><select id='category' name='category' size=1 onchange='populateSecondDropdown()'>");
 
-while (result.next()) {
-	out.println("<option value=" + result.getString("cat_id") + ">" + result.getString("name") + "</option>");
-}
+//while (result.next()) {
+out.println("<option value='VEH'>Vehicle</option>");
+out.println("<option value='CLO'>Clothing</option>");
+out.println("<option value='ELO'>Electronics</option>");
+out.println("<option value='FUR'>Furniture</option>");
+//}
 
 out.println("</select></td></tr>");
 out.println("<tr><td>Subcategory:</td><td><select id='subcategory' name='subcategory' size=1></select></td></tr>");
@@ -35,7 +37,7 @@ out.println("<tr><td>Subcategory:</td><td><select id='subcategory' name='subcate
 out.println("<tr><td>Name:</td><td><input type='text' name='name'/></td></tr>");
 out.println("<tr><td>Brand:</td><td><input type='text' name='brand'/></td></tr>");
 out.println("<tr><td>Newer than Year:</td><td><input type='number' name='year'/></td></tr>");
-out.println("<tr><td>Price Range:</td><td><input type='text' name='price_low'/></td> <td><input type='text' name='price_high'/></td></tr>");
+out.println("<tr><td>Price Range:</td><td><input type='number' name='price_low'/></td> <td><input type='number' name='price_high'/></td></tr>");
 out.println("<tr><td>Color:</td><td><input type='text' name='color'/></td></tr>");
 out.println("<tr><td>Transmission:</td><td><input type='text' name='desc_3'/></td></tr>");
 out.println("<input type='hidden' name='going_back' value='false'>");
@@ -50,12 +52,8 @@ out.println("</form>");
 			const secondDropdown = document.getElementById("subcategory");
 			const selectedOption = firstDropdown.value;
 			secondDropdown.innerHTML = "";
-			//const option = document.createElement("option");
-			//option.value = "";
-		    //option.text = "";
-		    //secondDropdown.add(option);
 			
-		    if (selectedOption === "VEH") {
+			if (selectedOption === "VEH") {
 		    	const option1 = document.createElement("option");
 		    	option1.value = "BIK";
 		    	option1.text = "Motorbike";
