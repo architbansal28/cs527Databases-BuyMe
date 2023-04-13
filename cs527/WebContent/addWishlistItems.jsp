@@ -8,11 +8,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-<title>BuyMe - Your wishlist</title>
+<title>BuyMe - Add to wishlist</title>
 </head>
 <body>
 
-	Adding to Wishlist :)
 	<%
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();	
@@ -23,25 +22,32 @@
 		String subcat_id = request.getParameter("subcategory_id");
 		String item_id = request.getParameter("item_id");
 		
-		String insert = "INSERT INTO wishlist(user_id, cat_id, subcat_id, item_id)"
-				+ "VALUES (?, ?, ?, ?)";
+		ResultSet current_wishlist = stmt.executeQuery("select * from wishlist where user_id ='" + user_id + "' and cat_id ='" + cat_id + "' and subcat_id ='" + subcat_id + "' and item_id ='" + item_id + "'");
+		if (current_wishlist.next()) {
+			out.println("Item already in wishlist! <a href='wishlist.jsp'>Go back</a>.");
+		} else {
 		
-		PreparedStatement ps = con.prepareStatement(insert);
-		ps.setString(1, user_id);
-		ps.setString(2, cat_id);
-		ps.setString(3, subcat_id);
-		ps.setString(4, item_id);
-		ps.executeUpdate();
-		
-		out.println("Item added successfully!");
-		
-		
-		out.println("<form action='wishlist.jsp' method='POST'>");
-		out.println("<input type='hidden' name='going_back' value='true'>");
-		out.println("<input type='submit' value='Go Back'>");
-		out.println("</form>");
-		
-		out.println("<br><a href='userLogin.jsp'>Go to home page.</a>");
+			String insert = "INSERT INTO wishlist(user_id, cat_id, subcat_id, item_id)"
+					+ "VALUES (?, ?, ?, ?)";
+			
+			PreparedStatement ps = con.prepareStatement(insert);
+			ps.setString(1, user_id);
+			ps.setString(2, cat_id);
+			ps.setString(3, subcat_id);
+			ps.setString(4, item_id);
+			ps.executeUpdate();
+			
+			out.println("Item added successfully!");
+			
+			
+			//out.println("<form action='wishlist.jsp' method='POST'>");
+			//out.println("<input type='hidden' name='going_back' value='true'>");
+			//out.println("<input type='submit' value='Go Back'>");
+			//out.println("</form>");
+			
+			out.println("<br><a href='wishlist.jsp'>Go back.</a>");
+			out.println("<br><a href='userLogin.jsp'>Go to home page.</a>");
+		}
 			
 		con.close();
 	%>

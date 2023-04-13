@@ -8,11 +8,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-<title>BuyMe - Your wishlist</title>
+<title>BuyMe - Remove from wishlist</title>
 </head>
 <body>
 
-	Adding to Wishlist :)
 	<%
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();	
