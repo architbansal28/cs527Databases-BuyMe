@@ -13,6 +13,7 @@
 <body>
 	<h4>Welcome <%=session.getAttribute("name")%> (<%=session.getAttribute("user")%>)</h4>
 	<a href='register.jsp'>Create customer representative account</a><br/>
+	<a href='reports.jsp'>View Reports</a><br/>
 	<a href='logout.jsp'>Log out</a>
 
 </body>
