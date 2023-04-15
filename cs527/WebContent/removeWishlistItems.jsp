@@ -34,7 +34,7 @@
 		out.println("Item removed successfully!");
 		
 		out.println("<br><a href='wishlist.jsp'>Go back</a>");
-		out.println("<br><a href='userLogin.jsp'>Go to home page.</a>");
+		out.println("<br><a href='userLogin.jsp'>Home page</a>");
 			
 		con.close();
 	%>

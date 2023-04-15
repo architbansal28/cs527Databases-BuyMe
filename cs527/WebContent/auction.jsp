@@ -29,7 +29,7 @@
 				ps.executeUpdate();
 			} else {
 				//send alert to winner
-				String insert = "INSERT INTO alert(end_user_id, timestamp, message)"
+				String insert = "INSERT IGNORE INTO alert(end_user_id, timestamp, message)"
 						+ "VALUES (?, ?, ?)";
 				PreparedStatement ps = con.prepareStatement(insert);
 				ps.setString(1, rs.getString("curr_winner"));

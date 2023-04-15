@@ -19,7 +19,7 @@
 	
 	<b>As a buyer, you can:</b><br/>
 	<!-- <a href='filter_wishlist.jsp'>Add to Wishlist</a><br/> -->
-	<a href='wishlist.jsp'>Add to Wishlist</a><br/>
+	<a href='wishlist.jsp'>Add to wishlist</a><br/>
 	<a href='placeBid.jsp'>Place bid</a><br/>
 	<a href='enrollForAutobid.jsp'>Enroll for autobid</a><br/><br/>
 	
@@ -33,9 +33,9 @@
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM alert WHERE end_user_id='" + session.getAttribute("user").toString()+ "'");
+		ResultSet rs = stmt.executeQuery("SELECT * FROM alert WHERE end_user_id='" + session.getAttribute("user").toString()+ "' ORDER BY timestamp DESC");
 		while (rs.next()) {
-			out.println("[" + rs.getString("timestamp") + "] " + rs.getString("message"));
+			out.println("[" + rs.getString("timestamp") + "] " + rs.getString("message") + "<br/>");
 		}
 	%>
 

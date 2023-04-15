@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.LocalDateTime"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -46,6 +46,20 @@
 			}
 			ps.setString(9, initial_price);
 			ps.executeUpdate();
+			
+			//check wishlists and send alerts
+			LocalDateTime now = LocalDateTime.now();
+			Statement stmt1 = con.createStatement();
+			ResultSet result1 = stmt1.executeQuery("select * from wishlist where cat_id='" + cat_id+ "' and subcat_id='" + subcat_id+ "' and item_id='" + item_id+"'");
+			while (result1.next()) {
+				String insert1 = "INSERT IGNORE INTO alert(end_user_id, timestamp, message)"
+						+ "VALUES (?, ?, ?)";
+				PreparedStatement ps1 = con.prepareStatement(insert1);
+				ps1.setString(1, result1.getString("user_id"));
+				ps1.setString(2, now.toString());
+				ps1.setString(3, "Your wishlist item " + cat_id+ "-" + subcat_id+ "-" + item_id+ " is up on auction from " + starting_time+ " to " + closing_time+ ".");
+				ps1.executeUpdate();
+			}
 			
 			out.println("Auction added successfully! <a href='auction.jsp'>Go back.</a>");
 		}
