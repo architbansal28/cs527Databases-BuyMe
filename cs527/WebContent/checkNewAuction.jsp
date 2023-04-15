@@ -40,7 +40,7 @@
 			ps.setString(6, initial_price);
 			ps.setString(7, increment_price);
 			if (minimum_price.equals("")) {
-				ps.setString(8, null);
+				ps.setString(8, initial_price);
 			} else {
 				ps.setString(8, minimum_price);
 			}
