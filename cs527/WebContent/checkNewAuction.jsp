@@ -39,7 +39,11 @@
 			ps.setString(5, closing_time);
 			ps.setString(6, initial_price);
 			ps.setString(7, increment_price);
-			ps.setString(8, minimum_price);
+			if (minimum_price.equals("")) {
+				ps.setString(8, null);
+			} else {
+				ps.setString(8, minimum_price);
+			}
 			ps.setString(9, initial_price);
 			ps.executeUpdate();
 			
