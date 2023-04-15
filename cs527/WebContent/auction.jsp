@@ -15,6 +15,30 @@
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();
 		
+		//check auction winners
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("SELECT * FROM auction WHERE closing_time<NOW() AND curr_winner IS NOT NULL");
+		while (rs.next()) {
+			int minimum_price = Integer.parseInt(rs.getString("minimum_price"));
+			int curr_price = Integer.parseInt(rs.getString("curr_price"));
+			if (curr_price<minimum_price) {
+				//update => no winner
+				String update = "UPDATE auction SET curr_winner=NULL WHERE auction_id=?";
+				PreparedStatement ps = con.prepareStatement(update);
+				ps.setString(1, rs.getString("auction_id"));
+				ps.executeUpdate();
+			} else {
+				//send alert to winner
+				String insert = "INSERT INTO alert(end_user_id, timestamp, message)"
+						+ "VALUES (?, ?, ?)";
+				PreparedStatement ps = con.prepareStatement(insert);
+				ps.setString(1, rs.getString("curr_winner"));
+				ps.setString(2, rs.getString("closing_time"));
+				ps.setString(3, "Congrats! You won Auction "+rs.getString("auction_id")+" for $"+rs.getString("curr_price")+".");
+				ps.executeUpdate();
+			}
+		}
+		
 		Statement stmt = con.createStatement();
 		ResultSet result = stmt.executeQuery("SELECT * FROM auction a JOIN item i ON a.item_id=i.item_id AND a.cat_id=i.cat_id AND a.subcat_id=i.subcat_id WHERE i.created_by='" + session.getAttribute("user").toString() + "' AND a.closing_time<NOW()");
 		

@@ -107,7 +107,7 @@
 				} else {
 					//update winner = new entry
 					int amount_current = amount_auction + increment;
-					if (amount_current<=amount_new && !curr_winner.equals(session.getAttribute("user").toString())) {
+					if (amount_current<=amount_new && (curr_winner==null || !curr_winner.equals(session.getAttribute("user").toString()))) {
 						String update = "UPDATE auction SET curr_winner=?, curr_price=? WHERE auction_id=?";
 						PreparedStatement ps = con.prepareStatement(update);
 						ps.setString(1, session.getAttribute("user").toString());

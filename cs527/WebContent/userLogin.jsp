@@ -26,7 +26,18 @@
 	<a href='deleteAccount.jsp'>Delete account</a><br/>
 	<a href='changePassword.jsp'>Change password</a><br/>
 	<a href='raiseQuery.jsp'>Raise query</a><br/>
-	<a href='logout.jsp'>Log out</a>
+	<a href='logout.jsp'>Log out</a><br/><br/>
+	
+	<u>Notifications</u>:<br/>
+	<%
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM alert WHERE end_user_id='" + session.getAttribute("user").toString()+ "'");
+		while (rs.next()) {
+			out.println("[" + rs.getString("timestamp") + "] " + rs.getString("message"));
+		}
+	%>
 
 </body>
 </html>
