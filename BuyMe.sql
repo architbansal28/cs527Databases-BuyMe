@@ -102,7 +102,7 @@ DROP TABLE IF EXISTS `alert`;
 CREATE TABLE `alert` (
   `end_user_id` varchar(20) NOT NULL,
   `timestamp` datetime NOT NULL,
-  `message` varchar(5000) NOT NULL,
+  `message` varchar(3000) NOT NULL,
   PRIMARY KEY (`end_user_id`,`message`),
   FOREIGN KEY (`end_user_id`) REFERENCES `end_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
