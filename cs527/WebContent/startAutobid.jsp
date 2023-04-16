@@ -135,7 +135,36 @@
 				ps2.setString(4, amount);
 				ps2.executeUpdate();
 				
-				out.println("Autobid started successfully! <a href='enrollForAutobid.jsp'>Go back</a>.");
+				//get alert if higher bid is placed
+				Statement stmt3 = con.createStatement();
+				ResultSet result3 = stmt3.executeQuery("select * from auction where auction_id='" + auction_id+ "'");
+				result3.next();
+				curr_winner = result3.getString("curr_winner");
+				String curr_price = result3.getString("curr_price");
+				Statement stmt4 = con.createStatement();
+				ResultSet result4 = stmt4.executeQuery("select distinct user_id from bid where auction_id='" + auction_id+ "' and user_id!='" + curr_winner+ "'");
+				while (result4.next()) {
+					String insert1 = "INSERT IGNORE INTO alert(end_user_id, timestamp, message)"
+							+ "VALUES (?, ?, ?)";
+					PreparedStatement ps3 = con.prepareStatement(insert1);
+					ps3.setString(1, result4.getString("user_id"));
+					ps3.setString(2, now.toString());
+					ps3.setString(3, "Alert! Higher bid placed for Auction " + auction_id+ " for $" + curr_price+ ".");
+					ps3.executeUpdate();
+				}
+				Statement stmt5 = con.createStatement();
+				ResultSet result5 = stmt5.executeQuery("select distinct user_id from auto_bid where auction_id='" + auction_id+ "' and user_id!='" + curr_winner+ "' and upper_limit<='" + curr_price+ "'");
+				while (result5.next()) {
+					String insert1 = "INSERT IGNORE INTO alert(end_user_id, timestamp, message)"
+							+ "VALUES (?, ?, ?)";
+					PreparedStatement ps3 = con.prepareStatement(insert1);
+					ps3.setString(1, result5.getString("user_id"));
+					ps3.setString(2, now.toString());
+					ps3.setString(3, "Alert! Someone bid more than your upper limit for Auction " + auction_id+ ".");
+					ps3.executeUpdate();
+				}
+				
+				out.println("Autobid started successfully!<br/><a href='enrollForAutobid.jsp'>Go back</a>");
 			}
 			
 		}
