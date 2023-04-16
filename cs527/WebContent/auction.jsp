@@ -145,6 +145,7 @@
 			out.println("</td></tr>");
 		}
 		out.println("</table><br/><br/>");
+		con.close();
 	%>
 	
 	<a href='startAuction.jsp'>Start auction</a><br/>

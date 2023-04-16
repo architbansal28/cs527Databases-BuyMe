@@ -61,7 +61,7 @@
 				ps1.executeUpdate();
 			}
 			
-			out.println("Auction added successfully! <a href='auction.jsp'>Go back.</a>");
+			out.println("Auction added successfully! <br/><a href='auction.jsp'>Go back</a>");
 		}
 		con.close();
 	%>
