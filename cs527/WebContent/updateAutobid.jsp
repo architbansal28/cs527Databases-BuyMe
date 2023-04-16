@@ -135,6 +135,10 @@
 				ps2.executeUpdate();
 				
 				//get alert if higher bid is placed
+				String message = "Alert! Someone bid more than your upper limit for Auction " + auction_id+ ".";
+				String delete = "DELETE FROM alert WHERE end_user_id='" + session.getAttribute("user").toString() + "' and message='" + message+ "'";
+				PreparedStatement ps = con.prepareStatement(delete);
+				ps.executeUpdate();
 				Statement stmt3 = con.createStatement();
 				ResultSet result3 = stmt3.executeQuery("select * from auction where auction_id='" + auction_id+ "'");
 				result3.next();
