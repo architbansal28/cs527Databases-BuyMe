@@ -45,7 +45,7 @@
 			
 			//check for autobid
 			Statement stmt1 = con.createStatement();
-			ResultSet result1 = stmt1.executeQuery("select * from auto_bid where auction_id='" + auction_id+"'order by upper_limit desc, timestamp asc");
+			ResultSet result1 = stmt1.executeQuery("select * from auto_bid where auction_id='" + auction_id+"' order by upper_limit desc, timestamp asc");
 			if (result1.next()) {
 				int amount_autobid = Integer.parseInt(result1.getString("upper_limit"));
 				String winner_autobid = result1.getString("user_id");
@@ -73,7 +73,36 @@
 				}
 			}
 			
-			out.println("Bid added successfully! <a href='placeBid.jsp'>Go back.</a>");
+			//get alert if higher bid is placed
+			Statement stmt2 = con.createStatement();
+			ResultSet result2 = stmt2.executeQuery("select * from auction where auction_id='" + auction_id+ "'");
+			result2.next();
+			String curr_winner = result2.getString("curr_winner");
+			String curr_price = result2.getString("curr_price");
+			Statement stmt3 = con.createStatement();
+			ResultSet result3 = stmt3.executeQuery("select distinct user_id from bid where auction_id='" + auction_id+ "' and user_id!='" + curr_winner+ "'");
+			while (result3.next()) {
+				String insert2 = "INSERT IGNORE INTO alert(end_user_id, timestamp, message)"
+						+ "VALUES (?, ?, ?)";
+				PreparedStatement ps2 = con.prepareStatement(insert2);
+				ps2.setString(1, result3.getString("user_id"));
+				ps2.setString(2, now.toString());
+				ps2.setString(3, "Alert! Higher bid placed for Auction " + auction_id+ " for $" + curr_price+ ".");
+				ps2.executeUpdate();
+			}
+			Statement stmt4 = con.createStatement();
+			ResultSet result4 = stmt4.executeQuery("select distinct user_id from auto_bid where auction_id='" + auction_id+ "' and user_id!='" + curr_winner+ "' and upper_limit<='" + curr_price+ "'");
+			while (result4.next()) {
+				String insert2 = "INSERT IGNORE INTO alert(end_user_id, timestamp, message)"
+						+ "VALUES (?, ?, ?)";
+				PreparedStatement ps2 = con.prepareStatement(insert2);
+				ps2.setString(1, result4.getString("user_id"));
+				ps2.setString(2, now.toString());
+				ps2.setString(3, "Alert! Someone bid more than your upper limit for Auction " + auction_id+ ".");
+				ps2.executeUpdate();
+			}
+			
+			out.println("Bid added successfully!<br/><a href='placeBid.jsp'>Go back</a>");
 		}
 		con.close();
 	%>
