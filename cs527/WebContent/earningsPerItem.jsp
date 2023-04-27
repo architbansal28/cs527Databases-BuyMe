@@ -8,10 +8,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-<title>BuyMe - Welcome</title>
+<title>BuyMe - Sales reports</title>
 
 	<style>
-table {
+		table {
 			border-collapse: collapse;
 			margin-top: 20px;
 			margin-bottom: 20px;
@@ -34,7 +34,7 @@ table {
 			justify-content: center;
 			align-items: center;
 			background-color: #f2f2f2;
-			padding: 10px;
+			padding: 7px;
 			border: 1px solid #ddd;
 			border-radius: 5px;
 			margin-top: 20px;
@@ -42,7 +42,7 @@ table {
 		}
 		.link {
 			display: block;
-			padding: 15px;
+			padding: 10px;
 			margin: 10px;
 			background-color: #fff;
 			border: 1px solid #ddd;
@@ -50,7 +50,7 @@ table {
 			text-decoration: none;
 			color: #333;
 			font-weight: bold;
-			font-size: 13px;
+			font-size: 15px;
 			text-align: center;
 			min-width: 150px;
 			flex-grow: 1;
@@ -64,9 +64,9 @@ table {
 
 </head>
 <body>
-	<h4>Welcome <%=session.getAttribute("name")%> (<%=session.getAttribute("user")%>)</h4>
+	<h4>Sales Reports</h4>
 	
-	<a href='adminLogin.jsp'>Go back to menu</a>
+	<a href='adminLogin.jsp'>Go back</a>
 	<!-- To include 
 	Total earnings, 
 	Earnings per item, 
@@ -75,30 +75,30 @@ table {
 	Best-selling items, 
 	Best-selling end-users:
 	 -->
-<div class="container">
-		<a class="link" href="totalEarnings.jsp">Total Earnings</a>
-		<a class="link" href="earningsPerItem.jsp">Earnings per item </a>
-		<a class="link" href="earningsPerItemType.jsp">Earnings per item type </a>
-		<a class="link" href="earningsPerEndUser.jsp">Earnings per end-user </a>
-		<a class="link" href="bestSellingItem.jsp">Best-selling items </a>
-		<a class="link" href="bestSellingPerEndUser.jsp">Best-buyers</a>
+	<div class="container">
+		<a class="link" href="totalEarnings.jsp">Total earnings</a>
+		<a class="link" href="earningsPerItem.jsp">Earnings per item</a>
+		<a class="link" href="earningsPerItemType.jsp">Earnings per item type</a>
+		<a class="link" href="earningsPerEndUser.jsp">Earnings per end-user</a>
+		<a class="link" href="bestSellingItem.jsp">Best-selling items</a>
+		<a class="link" href="bestSellingPerEndUser.jsp">Best buyers</a>
 	</div>
 	
 	
 	<table class='styled-table'>
 	
 	<tr>
-							<td>Auction ID</td>
-							<td>Category ID</td>
-							<td>SubCategory ID</td>
-							<td>Item ID</td>
-							<td>Starting Time</td>
-							<td>Closing Time</td>
-							<td>Initial Price</td>
-							<td>Increment Price</td>
-							<td>Minimum Price</td>
-							<td>Current Winner</td>
-							<td>Current Price</td>
+							<th>Auction ID</th>
+							<th>Category ID</th>
+							<th>SubCategory ID</th>
+							<th>Item ID</th>
+							<th>Starting Time</th>
+							<th>Closing Time</th>
+							<th>Initial Price</th>
+							<th>Increment Price</th>
+							<th>Minimum Price</th>
+							<th>Winner</th>
+							<th>Selling Price</th>
 							
 </tr>
 

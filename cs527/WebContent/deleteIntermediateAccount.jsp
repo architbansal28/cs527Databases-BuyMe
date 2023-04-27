@@ -9,14 +9,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-<title>BuyMe - Delete Account</title>
+<title>BuyMe - Delete account</title>
 </head>
 <body>
 <%
 String user_id = (String)session.getAttribute("user");
 %>
 
-<h2>Are you sure you want to delete your account?</h2>
 <form method="post" action="deleteAccountCheckDetails.jsp">
   <label for="password">Please enter your password to confirm:</label><br>
   <input type="password" id="password" name="password"><br><br>
