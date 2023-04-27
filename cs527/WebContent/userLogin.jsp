@@ -23,7 +23,7 @@
 	<a href='placeBid.jsp'>Place bid</a><br/>
 	<a href='enrollForAutobid.jsp'>Enroll for autobid</a><br/><br/>
 	
-	<a href='deleteAccount.jsp'>Delete account</a><br/>
+	<a href='deleteIntermediateAccount.jsp'>Delete account</a><br/>
 	<a href='changePassword.jsp'>Change password</a><br/>
 	<a href='raiseQuery.jsp'>Raise query</a><br/>
 	<a href='logout.jsp'>Log out</a><br/><br/>
