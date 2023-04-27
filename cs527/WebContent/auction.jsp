@@ -149,7 +149,7 @@
 	%>
 	
 	<a href='startAuction.jsp'>Start auction</a><br/>
-	<a href='deleteAuction.jsp'>Delete auction</a><br/>
+	<!-- <a href='deleteAuction.jsp'>Delete auction</a><br/> -->
 	<a href='updateAuction.jsp'>Update auction</a><br/><br/>
 	
 	<a href='raiseQuery.jsp'>Raise query</a><br/>

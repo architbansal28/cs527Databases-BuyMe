@@ -13,25 +13,7 @@
 <body>
 	<h4>Welcome <%=session.getAttribute("name")%> (<%=session.getAttribute("user")%>)</h4>
 	
-	<b>Resolve query:</b>
 	
-	<form action="repResponse.jsp" method="POST">
-		<table>
-		<tr><td>Question ID:</td>
-		<td><input type="text" name="ques_id" id="ques_id" required></td></tr>
-		
-		<tr><td>Response:</td>
-		<td><input type="text" name="response" id="response" required></td>
-		
-		<!-- <label for="status">Status:</label>
-    	<select name="status" id="status">
-        	<option value="declined">Declined</option>
-        	<option value="resolved">Resolved</option>
-    	</select> -->
-		</table>
-		<input type="submit" value="Submit">
-	</form>
-	<br/>
 
 	
 	<b>Pending queries:</b>
@@ -92,6 +74,47 @@
 			}
 		%>
 	</table><br/>
+	
+	<b>Resolve query:</b>
+	<form action="repResponse.jsp" method="POST">
+		<table>
+		<tr><td>Question ID:</td>
+		<td><input type="text" name="ques_id" id="ques_id" required></td></tr>
+		
+		<tr><td>Response:</td>
+		<td><input type="text" name="response" id="response" required></td>
+		
+		<!-- <label for="status">Status:</label>
+    	<select name="status" id="status">
+        	<option value="declined">Declined</option>
+        	<option value="resolved">Resolved</option>
+    	</select> -->
+		</table>
+		<input type="submit" value="Submit">
+	</form>
+	<br/>
+	
+	<b>Remove auction:</b>
+	<form action="checkDeleteAuction.jsp" method="POST">
+		<table>
+		<tr><td>Auction ID:</td>
+		<td><input type="text" name="auction_id" id="auction_id" required></td></tr>
+		<tr><td>Seller ID:</td>
+		<td><input type="text" name="user_id" id="user_id" required></td></tr>	
+		</table>
+		<input type="submit" value="Submit">
+	</form>
+	<br/>
+	
+	<b>Remove bid:</b>
+	<form action="deleteBid.jsp" method="POST">
+		<table>
+		<tr><td>Auction ID:</td>
+		<td><input type="text" name="bid_id" id="bid_id" required></td></tr>	
+		</table>
+		<input type="submit" value="Submit">
+	</form>
+	<br/>
 	
 	<b>Resolved queries:</b>
 	<table class='styled-table'>

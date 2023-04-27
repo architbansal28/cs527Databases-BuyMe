@@ -17,12 +17,18 @@
 		
 		Statement stmt = con.createStatement();
 		String auction_id = request.getParameter("auction_id");
+		String user_id = request.getParameter("user_id");
 		
-		String delete = "DELETE FROM auction WHERE auction_id='" + auction_id + "'";
-		PreparedStatement ps = con.prepareStatement(delete);
-		ps.executeUpdate();
-		
-		out.println("Auction deleted successfully! <br/><a href='auction.jsp'>Go back</a>");
+		ResultSet result = stmt.executeQuery("SELECT * FROM auction a JOIN item i ON a.item_id=i.item_id AND a.cat_id=i.cat_id AND a.subcat_id=i.subcat_id WHERE i.created_by='" + user_id + "' AND a.auction_id='" + auction_id + "' AND a.closing_time>NOW()");
+		if (result.next()) {
+			String delete = "DELETE FROM auction WHERE auction_id='" + auction_id + "'";
+			PreparedStatement ps = con.prepareStatement(delete);
+			ps.executeUpdate();
+			
+			out.println("Auction deleted successfully! <br/><a href='repLogin.jsp'>Go back</a>");
+		} else {
+			out.println("Auction cannot be deleted! <br/><a href='repLogin.jsp'>Go back</a>");
+		}
 			
 		con.close();
 	%>
