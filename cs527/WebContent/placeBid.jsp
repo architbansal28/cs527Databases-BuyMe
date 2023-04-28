@@ -20,7 +20,8 @@
 		
 		out.println("<b>Live auctions:</b><br/>");
 		out.println("<table class='styled-table'>");
-		out.println("<tr><th>Auction ID</th><th>Category ID</th><th>Subcategory ID</th><th>Item ID</th><th>Name</th><th>Brand</th><th>Starting time</th><th>Closing time</th><th>Initial price</th><th>Increment price</th><th>Current price</th></tr>");
+		//out.println("<tr><th>Auction ID</th><th>Category ID</th><th>Subcategory ID</th><th>Item ID</th><th>Name</th><th>Brand</th><th>Starting time</th><th>Closing time</th><th>Initial price</th><th>Increment price</th><th>Current price</th></tr>");
+		out.println("<tr><th>Auction ID</th><th>Category ID</th><th>Subcategory ID</th><th>Name</th><th>Brand</th><th>Starting time</th><th>Closing time</th><th>Initial price</th><th>Increment price</th><th>Current price</th></tr>");
 		while (result.next()) {
 			out.println("<tr><td>");
 			out.print(result.getString("a.auction_id"));
@@ -29,8 +30,8 @@
 			out.println("</td><td>");
 			out.print(result.getString("subcat_id"));
 			out.println("</td><td>");
-			out.print(result.getString("item_id"));
-			out.println("</td><td>");
+			//out.print(result.getString("item_id"));
+			//out.println("</td><td>");
 			out.print(result.getString("name"));
 			out.println("</td><td>");
 			out.print(result.getString("brand"));
@@ -48,14 +49,37 @@
 		}
 		out.println("</table><br/><br/>");
 		
-		result = stmt.executeQuery("SELECT * FROM bid WHERE user_id='" + session.getAttribute("user").toString()+"' ORDER BY auction_id DESC, timestamp DESC");
+
+		result = stmt.executeQuery("SELECT DISTINCT i.item_id, i.name, i.brand, i.year FROM bid b JOIN auction a on b.auction_id = a.auction_id JOIN item i on a.item_id = i.item_id WHERE user_id='" + session.getAttribute("user").toString()+"'");
+		out.println("<b>Auctions you participated in:</b><br/>");
+		out.println("<table class='styled-table'>");
+		out.println("<tr><th>Name</th><th>Brand</th><th>Year</th></tr>");
+		while (result.next()) {
+			out.println("<tr><td>");
+			out.print(result.getString("name"));
+			out.println("</td><td>");
+			out.print(result.getString("brand"));
+			out.println("</td><td>");
+			out.print(result.getString("year"));
+			out.println("</td><td>");
+		}
+		out.println("</table><br/><br/>");
+		
+		
+		
+		result = stmt.executeQuery("SELECT * FROM bid JOIN auction on bid.auction_id = auction.auction_id JOIN item on auction.item_id = item.item_id WHERE user_id='" + session.getAttribute("user").toString()+"' ORDER BY bid.auction_id DESC, bid.timestamp DESC");
 		
 		out.println("<b>Your bids:</b><br/>");
 		out.println("<table class='styled-table'>");
-		out.println("<tr><th>Bid ID</th><th>Auction ID</th><th>Timestamp</th><th>Amount</th></tr>");
+		//out.println("<tr><th>Bid ID</th><th>Auction ID</th><th>Timestamp</th><th>Amount</th></tr>");
+		out.println("<tr><th>Name</th><th>Brand</th><th>Auction ID</th><th>Timestamp</th><th>Amount</th></tr>");
 		while (result.next()) {
 			out.println("<tr><td>");
-			out.print(result.getString("bid_id"));
+			out.print(result.getString("name"));
+			out.println("</td><td>");
+			out.print(result.getString("brand"));
+			//out.println("</td><td>");
+			//out.print(result.getString("bid_id"));
 			out.println("</td><td>");
 			out.print(result.getString("auction_id"));
 			out.println("</td><td>");
