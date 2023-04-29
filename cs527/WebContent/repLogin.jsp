@@ -110,7 +110,7 @@
 	<form action="deleteBid.jsp" method="POST">
 		<table>
 		<tr><td>Auction ID:</td>
-		<td><input type="text" name="bid_id" id="bid_id" required></td></tr>	
+		<td><input type="text" name="auctionID" id="auctionID" required></td></tr>	
 		</table>
 		<input type="submit" value="Submit">
 	</form>
@@ -138,7 +138,7 @@
 			try {
 				ApplicationDB db = new ApplicationDB();	
 				con = db.getConnection();
-				String sql = "SELECT end_user_id, ques_id, ques_text, ans_text, customer_rep_id, timestamp_asked, timestamp_resolved FROM question where status='resolved'";
+				String sql = "SELECT end_user_id, ques_id, ques_text, ans_text, customer_rep_id, timestamp_asked, timestamp_resolved FROM question where status='resolved' ORDER BY timestamp_asked DESC";
 				stmt = con.prepareStatement(sql);
 				//stmt.setString(1, endUserId);
 				rs = stmt.executeQuery();
