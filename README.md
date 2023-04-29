@@ -44,7 +44,7 @@ Create accounts of users; login, logout
 - a user is able to:
     - view all the history of bids for any specific auction
     - view the list of all auctions a specific buyer or seller has participated in
-    - view the list of "similar" items on auctions in the preceding month (and auction information about them)
+    - view the list of similar items on auctions in the preceding months
 - let user get an alert for specific items s/he is interested when the item becomes available
 
 **III. Admin and customer rep functions**
@@ -53,5 +53,4 @@ Create accounts of users; login, logout
     - generates sales reports for total earnings, earnings per (item, item type, end-user), best-selling items, best buyers
 - Customer representative functions:
     - users post questions to the customer representatives (i.e. customer service) and reps reply to user questions
-    - edits and deletes account information
     - removes auctions or bids
